@@ -1,23 +1,18 @@
 
-// opcion 1 para mostrar numeros en pantalla. Necesita onclick en c7u de los btn
-// function mostrarNumero(numero) {
-//     const pantalla = document.getElementById('resultado');
-//     pantalla.innerText += numero;
-// }
 
-//inicializadas para evitar undefined
+// variables globales inicializadas para evitar undefined
 let primerNumero = '';
 let operador = '';
 let esperarSegundoNumero = false;
 
 
-// opcion 2 para mostrar numeros en pantalla
+// mostrar numeros y punto en pantalla
 document.querySelectorAll('.nro').forEach(boton =>{
     boton.addEventListener('click', () => {
         const pantalla = document.getElementById('resultado');
         const valor = boton.innerText;
 
-        if(valor === "." && pantalla.innerText.includes(".")){
+        if(valor === "." && pantalla.innerText.includes(".")){ //evita que se repita el "."
             return;
         }
         if(esperarSegundoNumero){
@@ -29,12 +24,7 @@ document.querySelectorAll('.nro').forEach(boton =>{
     });
 });
 
-function borrarNumero() {
-    const pantalla = document.getElementById('resultado');
-    pantalla.innerText = '';
-}
-
-
+//manejar operadores
 document.querySelectorAll('.signos').forEach(boton =>{
     boton.addEventListener('click', () => {
         const pantalla = document.getElementById('resultado');
@@ -46,7 +36,7 @@ document.querySelectorAll('.signos').forEach(boton =>{
     });
 });
 
-
+//manejar (=)
 const igual = document.getElementById('igual');
 igual.addEventListener('click', () => {
     const pantalla = document.getElementById('resultado');
@@ -56,18 +46,15 @@ igual.addEventListener('click', () => {
     switch (operador) {
         case '+':
             respuesta = parseFloat(primerNumero) + parseFloat(segundoNumero);
-            pantalla.innerText = respuesta;
             break;
         case '-':
             respuesta = parseFloat(primerNumero) - parseFloat(segundoNumero);
-            pantalla.innerText = respuesta;
             break;
         case '*':
             respuesta = parseFloat(primerNumero) * parseFloat(segundoNumero);
-            pantalla.innerText = respuesta;
             break;
         case '/':
-            if (parseFloat(segundoNumero) === 0){
+            if (parseFloat(segundoNumero) === 0){ //parsear para que no muestre infinity
                 respuesta = "Error";
             } else {
                 respuesta = parseFloat(primerNumero) / parseFloat(segundoNumero);
@@ -76,7 +63,13 @@ igual.addEventListener('click', () => {
             break;
         default:
             respuesta = "Error";
-            pantalla.innerText = respuesta;
             break;
     }
+    pantalla.innerText = respuesta;
 })
+
+//manejar btn C
+function borrarNumero() {
+    const pantalla = document.getElementById('resultado');
+    pantalla.innerText = '';
+}
